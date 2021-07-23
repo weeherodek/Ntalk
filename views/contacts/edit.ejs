@@ -1,0 +1,15 @@
+<% include ../header %>
+    <header>
+        <h2>Ntal - Editar contato</h2>
+    </header>
+    <section>
+        <form action="/contato/<%- contact.id %>?_method=put" method="POST">
+            <label for="contact[name]">Nome:</label>
+            <input type="text" name="contact[name]" value="<%- contact.name %>">
+            <label for="contact[email]">Email:</label>
+            <input type="email" name="contact[email]" value="<%- contact.email %>">
+            <button type="submit">Atualizar</button>
+        </form>
+    </section>
+<% include ../exit %>
+<% include ../footer %>

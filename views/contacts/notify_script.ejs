@@ -1,0 +1,27 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+<script>
+    const socket = io();
+    
+    const notify = (data) =>{
+        const notify = document.getElementById(`notify_${data.email}`);
+        if(notify){
+            notify.textContent = data.msg;
+        }
+    };
+
+    socket.on('notify-onlines',(email)=>{
+        notify({email, msg:'Online'});
+    });
+    socket.on('notify_offlines', (email)=>{
+        notify({email, msg: 'Offline'});
+    });
+    socket.on('new-message', (data)=>{
+        const chat = document.getElementById(`chat_${data.email}`);
+        if(chat.href.includes('?sala=')){
+            chat.href= chat.href.replace(/\?sala=[\w]+/,`?sala=${data.room}`);
+        }else{
+            chat.href += `?sala=${data.room}`;
+        }
+        notify({email: data.email, msg: 'Nova mensagem!'});
+    });
+</script>
